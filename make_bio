@@ -1,0 +1,23 @@
+#! /bin/bash
+
+# Author: Jesse Wood
+# Recreates the databases structures for the Benthic Biological Dataset.
+# Creates the schema and the table for storing the download information.
+
+DB='nzodn'
+SCHEMA='bio'
+TABLE='biological_maps'
+USER='nzodn_admin'
+
+psql -d $DB -c 'drop schema if exists bio cascade;';
+
+psql -d $DB -c "create schema ${SCHEMA} authorization ${USER};";
+
+psql -d $DB -c "create table ${SCHEMA}.${TABLE} (
+        id int primary key not null,
+        filename text not null unique,
+        url text not null unique,
+        description text,
+        geom geometry(Polygon)
+    );";
+
