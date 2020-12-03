@@ -1,0 +1,22 @@
+#! /bash/bin
+
+# Author: Jesse Wood
+# 
+# This publishes a zipfile to the `/data/niwa/publish/bio` directory.
+# Files in this directory are visible to the NZODN web portal.
+# This is where we store the zip files for our Biological dataset.
+# 
+# This script must be run as the robot user.
+# This is a dedicated service role for publishing data to NZODN.
+# e.g., `sudo su - robot` 
+
+# Where we want to publish the zip file.
+DEST='/data/niwa/publish/bio/'
+
+# The file path to the zip file to be published.
+FILE='/home/woodj/download-test/bio.zip'
+
+# Copies the zipfile to the publish directory.
+cp $FILE $DEST
+
+
