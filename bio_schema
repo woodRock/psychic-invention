@@ -6,7 +6,7 @@
 
 DB='nzodn'
 SCHEMA='bio'
-TABLE='biological_maps'
+TABLE='biological_map'
 USER='nzodn_admin'
 
 psql -d $DB -c 'drop schema if exists bio cascade;';
@@ -18,6 +18,11 @@ psql -d $DB -c "create table ${SCHEMA}.${TABLE} (
                 filename    text                not null unique,
                 url         text                not null unique,
                 description text,
-                geom        geometry(Polygon)   not null
+                geom        geometry(Polygon)
                 );";
 
+psql -d $DB -c "insert into ${SCHEMA}.${TABLE} 
+                (filename, url, description)
+                values
+                ('bio/bio.zip','http://www.nzodn.nz/data/bio/bio.zip', 'benthic biological dataset')
+                ;";
