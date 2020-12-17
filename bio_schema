@@ -22,7 +22,14 @@ psql -d $DB -c "create table ${SCHEMA}.${TABLE} (
                 );";
 
 psql -d $DB -c "insert into ${SCHEMA}.${TABLE} 
-                (filename, url, description)
-                values
-                ('bio/bio.zip','http://www.nzodn.nz/data/bio/bio.zip', 'benthic biological dataset')
-                ;";
+                (filename, url, description,geom)
+                values(
+                    'bio/bio.zip',
+                    'http://www.nzodn.nz/data/bio/bio.zip', 
+                    'benthic biological dataset',
+                    ST_MakeEnvelope(171.99373,-45.79912,188.39583,-41.53985,4326)
+                );";
+
+# Grant read access for the nzodn role to query information.
+psql -d $DB -c "grant usage on schema bio to nzodn;"
+psql -d $DB -c "grant select on table \"bio\".\"biological_map\" to nzodn;"
