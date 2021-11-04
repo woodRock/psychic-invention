@@ -5,17 +5,17 @@
 # Creates the schema and the table for storing the download information.
 
 DB='nzodn'
-SCHEMA='bio'
-TABLE='biological_map'
+SCHEMA='bio_campbell_chatham'
+TABLE='bio_campbell_chatham'
 USER='nzodn_admin'
-FILE='bio/bio.zip'
-COMMENT='ZBD201611: Benthic Biological Dataset Chatham (static)'
+FILE='bio_campbell_chatham/ZBD201901-01.zip'
+COMMENT='ZBD201901-01: Benthic Biological Campbell Plateau and Chatham Rise (static)'
 
 psql -d $DB -c "drop schema if exists ${SCHEMA} cascade;";
 
 psql -d $DB -c "create schema ${SCHEMA} authorization ${USER};";
 
-psql -d $DB -c "comment on schema ${SCHEMA} is '${COMMENT}';";
+psql -d $DB -c "comment on schema ${SCHEMA} is '${COMMENT};'";
 
 psql -d $DB -c "create table ${SCHEMA}.${TABLE} (
                 id          serial  primary key,
@@ -25,13 +25,14 @@ psql -d $DB -c "create table ${SCHEMA}.${TABLE} (
                 geom        geometry(Polygon)
                 );";
 
+
 psql -d $DB -c "insert into ${SCHEMA}.${TABLE} 
                 (filename, url, description, geom)
                 values(
                     '${FILE}',
                     'http://www.nzodn.nz/data/${FILE}', 
                     '${COMMENT}',
-                    ST_MakeEnvelope(171.99373,-45.79912,188.39583,-41.53985,4326)
+                    ST_MakeEnvelope(169.1333,-55.6667,188.3967,-41.54167,4326)
                 );";
 
 # Grant read access for the nzodn role to query information.
