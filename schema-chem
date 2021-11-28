@@ -1,0 +1,58 @@
+#! /bin/bash
+
+# Date: 2021-11-29
+# Author: Jesse Wood
+# 
+# Creates schema and ingests data for Chemical Dataset into psql.
+# Adds an entry for each station, providing coordinates and file path.
+# Depends on files already being uploaded to '/data/niwa/publish' directory.
+
+DB='nzodn'
+SCHEMA='chemical_dataset'
+TABLE='chemical_dataset'
+USER='nzodn_admin'
+COMMENT='TODO: NZ Phophorite Geochemistry Dataset (static)'
+
+psql -d $DB -c "drop schema if exists ${SCHEMA} cascade;";
+
+psql -d $DB -c "create schema ${SCHEMA} authorization ${USER};";
+
+psql -d $DB -c "comment on schema ${SCHEMA} is '${COMMENT};'";
+
+psql -d $DB -c "create table ${SCHEMA}.${TABLE} (
+                id          serial  primary key,
+                filename    text                not null unique,
+                url         text                not null unique,
+                description text,
+                geom        geometry(Point)
+                );";
+
+FILE="NZPhophoriteGeochemistry.csv"
+NO_STATIONS=$((`wc -l "${FILE}" | cut -d " " -f 1` - 1))
+echo "No. stations: ${NO_STATIONS}";
+STATIONS=`cut -d ',' -f 1 "${FILE}" | tail --lines "${NO_STATIONS}"`
+CNT=2;
+DIR="test";
+
+for STATION in ${STATIONS}; do 
+	echo "Station: ${STATION}";
+	STATION_FILE="${DIR}/${STATION}/${STATION}.csv"
+	LAT=`head "-${CNT}" "${FILE}" | tail "+${CNT}" | cut -d ',' -f 2`
+        LON=`head "-${CNT}" "${FILE}" | tail "+${CNT}" | cut -d ',' -f 3`
+	echo "Lat: ${LAT}, Lon: ${LON}";
+	psql -d $DB -c "insert into ${SCHEMA}.${TABLE} 
+                (filename, url, description, geom)
+                values(
+                    '${STATION_FILE}',
+                    'http://www.nzodn.nz/data/${STATION_FILE}', 
+                    '${STATION}',
+                    ST_MakePoint(${LAT},${LON})
+                );";
+	
+	CNT=$((CNT+1));
+	# break; # TESTING: Only process first station.
+done
+
+# Grant read access for the nzodn role to query information.
+psql -d $DB -c "grant usage on schema ${SCHEMA} to ${DB};"
+psql -d $DB -c "grant select on table \"${SCHEMA}\".\"${TABLE}\" to ${DB};"

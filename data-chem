@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# Date: 2021-11-28
+# Author: Jesse Wood
+# 
+# This script takes the transposed chemical dataset and prepares it for NZODN.
+# Each station becomes its own folder, with a CSV containing its data. 
+
+FILE="NZPhophoriteGeochemistry.csv"
+NO_STATIONS=$((`wc -l "${FILE}" | cut -d " " -f 1` - 1))
+echo "No. stations: ${NO_STATIONS}";
+
+STATIONS=`cut -d ',' -f 1 "${FILE}" | tail --lines "${NO_STATIONS}"`
+CSV_HEADER=`cat ${FILE} | head -n 1`; 
+
+echo "Processing stations...";
+CNT=2;
+# DATA_DIR="/data/niwa/publish/chemical";
+DATA_DIR="test";
+
+if [ ! -d "${DATA_DIR}" ]; then
+	mkdir "${DATA_DIR}";
+fi 
+
+for STATION in ${STATIONS}; do
+	echo "Station: ${STATION}";
+	DIR="${DATA_DIR}/${STATION}";
+	mkdir "${DIR}";
+	
+	STATION_FILE="${DIR}/${STATION}.csv";
+	touch "${STATION_FILE}";
+	echo "${CSV_HEADER}" > "${STATION_FILE}";
+	ROW=`head "-${CNT}" "${FILE}" | tail "+${CNT}"`;
+	echo "${ROW}" >> "${STATION_FILE}";
+
+	# Add to psql database. 
+ 	LAT=`head "-${CNT}" "${FILE}" | tail "+${CNT}" | cut -d ',' -f 2`
+	LON=`head "-${CNT}" "${FILE}" | tail "+${CNT}" | cut -d ',' -f 3`
+	echo "Lat: ${LAT}, Lon: ${LON}";
+	
+	CNT=$((CNT+1));
+	# break # TESTING: Run for first station.
+done
