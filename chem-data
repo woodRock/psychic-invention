@@ -4,9 +4,10 @@
 # Author: Jesse Wood
 # 
 # This script takes the transposed chemical dataset and prepares it for NZODN.
-# Each station becomes its own folder, with a CSV containing its data. 
+# Each station has a folder, with a CSV containing its data.
+# Run the script as the `robot` user from this `~/woodj/bin` directory.
 
-FILE="NZPhophoriteGeochemistry.csv"
+FILE="../NZPhophoriteGeochemistry.csv"
 NO_STATIONS=$((`wc -l "${FILE}" | cut -d " " -f 1` - 1))
 echo "No. stations: ${NO_STATIONS}";
 
@@ -15,11 +16,13 @@ CSV_HEADER=`cat ${FILE} | head -n 1`;
 
 echo "Processing stations...";
 CNT=2;
-# DATA_DIR="/data/niwa/publish/chemical";
-DATA_DIR="test";
+DATA_DIR="/data/niwa/publish/chemical";
 
 if [ ! -d "${DATA_DIR}" ]; then
 	mkdir "${DATA_DIR}";
+else
+    rm -rf "${DATA_DIR}";
+    mkdir "${DATA_DIR}";
 fi 
 
 for STATION in ${STATIONS}; do
@@ -30,14 +33,12 @@ for STATION in ${STATIONS}; do
 	STATION_FILE="${DIR}/${STATION}.csv";
 	touch "${STATION_FILE}";
 	echo "${CSV_HEADER}" > "${STATION_FILE}";
-	ROW=`head "-${CNT}" "${FILE}" | tail "+${CNT}"`;
+	ROW=`head "-${CNT}" "${FILE}" | tail -n "+${CNT}"`;
 	echo "${ROW}" >> "${STATION_FILE}";
 
-	# Add to psql database. 
- 	LAT=`head "-${CNT}" "${FILE}" | tail "+${CNT}" | cut -d ',' -f 2`
-	LON=`head "-${CNT}" "${FILE}" | tail "+${CNT}" | cut -d ',' -f 3`
+    LAT=`head "-${CNT}" "${FILE}" | tail -n "+${CNT}" | cut -d ',' -f 2`
+	LON=`head "-${CNT}" "${FILE}" | tail -n "+${CNT}" | cut -d ',' -f 3`
 	echo "Lat: ${LAT}, Lon: ${LON}";
 	
 	CNT=$((CNT+1));
-	# break # TESTING: Run for first station.
 done
