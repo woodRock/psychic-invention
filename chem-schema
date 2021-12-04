@@ -11,13 +11,13 @@ DB='nzodn'
 SCHEMA='chemical_dataset'
 TABLE='chemical_dataset'
 USER='nzodn_admin'
-COMMENT='TODO: NZ Phophorite Geochemistry Dataset (static)'
+COMMENT='NZ Phophorite Geochemistry Dataset (static)'
 
 psql -d $DB -c "drop schema if exists ${SCHEMA} cascade;";
 
 psql -d $DB -c "create schema ${SCHEMA} authorization ${USER};";
 
-psql -d $DB -c "comment on schema ${SCHEMA} is '${COMMENT};'";
+psql -d $DB -c "comment on schema ${SCHEMA} is '${COMMENT}';";
 
 psql -d $DB -c "create table ${SCHEMA}.${TABLE} (
                 id          serial  primary key,
@@ -26,19 +26,22 @@ psql -d $DB -c "create table ${SCHEMA}.${TABLE} (
                 description text,
                 geom        geometry(Point)
                 );";
+psql -d $DB -c "comment on table ${SCHEMA}.${TABLE} is '${COMMENT}';";
 
-FILE="NZPhophoriteGeochemistry.csv"
+FILE="../NZPhophoriteGeochemistry.csv"
+DIR="chemical";
+
 NO_STATIONS=$((`wc -l "${FILE}" | cut -d " " -f 1` - 1))
 echo "No. stations: ${NO_STATIONS}";
 STATIONS=`cut -d ',' -f 1 "${FILE}" | tail --lines "${NO_STATIONS}"`
+
 CNT=2;
-DIR="test";
 
 for STATION in ${STATIONS}; do 
 	echo "Station: ${STATION}";
 	STATION_FILE="${DIR}/${STATION}/${STATION}.csv"
-	LAT=`head "-${CNT}" "${FILE}" | tail "+${CNT}" | cut -d ',' -f 2`
-        LON=`head "-${CNT}" "${FILE}" | tail "+${CNT}" | cut -d ',' -f 3`
+	LAT=`head "-${CNT}" "${FILE}" | tail -n "+${CNT}" | cut -d ',' -f 2`
+    LON=`head "-${CNT}" "${FILE}" | tail -n "+${CNT}" | cut -d ',' -f 3`
 	echo "Lat: ${LAT}, Lon: ${LON}";
 	psql -d $DB -c "insert into ${SCHEMA}.${TABLE} 
                 (filename, url, description, geom)
