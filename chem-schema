@@ -26,6 +26,7 @@ psql -d $DB -c "create table ${SCHEMA}.${TABLE} (
                 description text,
                 geom        geometry(Point)
                 );";
+		
 psql -d $DB -c "comment on table ${SCHEMA}.${TABLE} is '${COMMENT}';";
 
 FILE="../NZPhophoriteGeochemistry.csv"
@@ -41,7 +42,7 @@ for STATION in ${STATIONS}; do
 	echo "Station: ${STATION}";
 	STATION_FILE="${DIR}/${STATION}/${STATION}.csv"
 	LAT=`head "-${CNT}" "${FILE}" | tail -n "+${CNT}" | cut -d ',' -f 2`
-    LON=`head "-${CNT}" "${FILE}" | tail -n "+${CNT}" | cut -d ',' -f 3`
+    	LON=`head "-${CNT}" "${FILE}" | tail -n "+${CNT}" | cut -d ',' -f 3`
 	echo "Lat: ${LAT}, Lon: ${LON}";
 	psql -d $DB -c "insert into ${SCHEMA}.${TABLE} 
                 (filename, url, description, geom)
@@ -49,7 +50,7 @@ for STATION in ${STATIONS}; do
                     '${STATION_FILE}',
                     'http://www.nzodn.nz/data/${STATION_FILE}', 
                     '${STATION}',
-                    ST_MakePoint(${LAT},${LON})
+                    ST_SetSRID(ST_MakePoint(${LON},${LAT}), 4326)
                 );";
 	
 	CNT=$((CNT+1));
