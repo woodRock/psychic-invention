@@ -75,7 +75,7 @@ Notes:
     * Conductivity, Temperature and Depth 
     * a proxy for the salinity of water
     * this is generated on a on-going basis 
-    * uses [cron](https://github.com/woodRock/psychic-invention/wiki/CRON) jobs to ingest the data each day
+    * uses `cron <https://github.com/woodRock/psychic-invention/wiki/CRON>`_ jobs to ingest the data each day
 
 Links: 
     * TODO 
