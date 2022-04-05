@@ -23,6 +23,8 @@ SFTP
 ----
 .. TODO
 
+.. include:: tech/sftp.rst
+
 SSH 
 --- 
 .. TODO 
