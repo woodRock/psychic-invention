@@ -7,6 +7,7 @@ NZODN Docs
 
    about
    datasets
+   technology
    support
 
 Indices and tables

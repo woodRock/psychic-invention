@@ -1,0 +1,329 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>crontab &mdash; nzodn 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> nzodn
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets.html">Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technology.html">Technology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../support.html">Support</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">nzodn</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>crontab</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/tech/cron.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <p>The software utility <a class="reference external" href="https://en.wikipedia.org/wiki/Cron">cron</a> was developed at AT&amp;T and Bell Labs.
+It is often referred to as a cron job.
+This utility provides a time-based scheduler on Linux systems.
+It can be used to run a script at specific times, repeatedly.
+For example, we could check for updates on the for the <cite>apt</cite> package _once_ a week [1].</p>
+<p>Cron is most suitable for scheduling repetitive tasks. In our case, we ingest data from the moorings once a day. We need to check the central databases, which contains mooring data and update the existing database on NZODN to include the new record.</p>
+<section id="crontab">
+<h1>crontab<a class="headerlink" href="#crontab" title="Permalink to this headline">¶</a></h1>
+<p>The frequency at which a cronjob is run depends on the <cite>crontab</cite> (cron table) file.
+This is a configuration file that specifies scripts to be run on a schedule.
+All the <cite>crontab</cite> files are stored in a directory where the cron <cite>daemon</cite> is kept.
+Users can have their own crontab files, and there is usually a system-wide contrab file located in the <cite>/etc</cite> or a subdirectory of <cite>/etc</cite>.
+This file can only be edited by system administrators [1].</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># ┌───────────── minute (0 - 59)
+# │ ┌───────────── hour (0 - 23)
+# │ │ ┌───────────── day of the month (1 - 31)
+# │ │ │ ┌───────────── month (1 - 12)
+# │ │ │ │ ┌───────────── day of the week (0 - 6) (Sunday to Saturday;
+# │ │ │ │ │                                   7 is also Sunday on some systems)
+# │ │ │ │ │
+# │ │ │ │ │
+# * * * * * &lt;command to execute&gt;
+</pre></div>
+</div>
+<p>Each line of a crontab starts with five fields. These fields are used to represent the time schedule for the command to be run.</p>
+<p><a class="reference external" href="https://crontab.guru/">Online</a> tools exist to easily calculate this seemingly cryptic language, much like regex, sometimes recall vs. recognition is important, we must recognise this is a niche skill and outsource knowledge when convenient.</p>
+</section>
+<section id="examples">
+<h1>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h1>
+<p>The example below clears the Apache error log at one minute past midnight (00:01) every day.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="m">1</span> <span class="m">0</span> * * * <span class="nb">printf</span> <span class="s2">&quot;&quot;</span> &gt; /var/log/apache/error_log
+</pre></div>
+</div>
+<p>This example runs a shell script called export_dump.sh at 23:45 (11:45 pm) every Saturday.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="m">45</span> <span class="m">23</span> * * <span class="m">6</span> /home/oracle/scripts/export_dump.sh
+</pre></div>
+</div>
+<p>Note: It is also possible to specify <cite>*/n</cite> t run for every _n_-th interval of time.</p>
+<p>The output below would write “hello world” to standard output every 5th minute of every first, second, and third hour (i.e., 01:00, 01:05, 01:10, up until 03:55).</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ */5 <span class="m">1</span>,2,3 * * * <span class="nb">echo</span> hello world
+</pre></div>
+</div>
+</section>
+<section id="marcos">
+<h1>Marcos<a class="headerlink" href="#marcos" title="Permalink to this headline">¶</a></h1>
+<p>Some cron implementations support non-standard macro definitions.
+For example, <cite>&#64;reboot</cite> configures a job to run once the daemon is started.
+Cron is rarely restarted, so this macro corresponds to when the machine is rebooted.
+In some Debian distributions this behaviour is enforced, where restarting cron will not run the <cite>&#64;reboot</cite> jobs.</p>
+<p>Some other examples include</p>
+<p><a href="#id3"><span class="problematic" id="id4">|Entry|Description|Equivalent to|</span></a>
+<a href="#id5"><span class="problematic" id="id6">|---|</span></a>—<a href="#id7"><span class="problematic" id="id8">|---|</span></a>
+<a href="#id9"><span class="problematic" id="id10">|`&#64;yearly (or &#64;annually)`|Run once a year at midnight of 1 January|`0 0 1 1 *`|</span></a>
+<a href="#id11"><span class="problematic" id="id12">|`&#64;monthly`|Run once a month at midnight of the first day of the month|`0 0 1 * *`|</span></a>
+<a href="#id13"><span class="problematic" id="id14">|`&#64;weekly`|Run once a week at midnight on Sunday morning|`0 0 * * 0`|</span></a>
+<a href="#id15"><span class="problematic" id="id16">|`&#64;daily (or &#64;midnight)`|Run once a day at midnight|`0 0 * * *`|</span></a>
+<a href="#id17"><span class="problematic" id="id18">|`&#64;hourly`|Run once an hour at the beginning of the hour|`0 * * * *`|</span></a>
+<a href="#id19"><span class="problematic" id="id20">|`&#64;reboot`|Run at startup|</span></a> <a href="#id1"><span class="problematic" id="id2">`</span></a>na`|</p>
+</section>
+<section id="permission">
+<h1>Permission<a class="headerlink" href="#permission" title="Permalink to this headline">¶</a></h1>
+<dl class="simple">
+<dt>There are two files that affect the permissions for executing cron jobs.</dt><dd><ul class="simple">
+<li><p><cite>/etc/cron.allow</cite> - if file exists, it contains a list of users allowed to use cron jobs</p></li>
+<li><p><cite>/etc/cron.deny</cite> - if <cite>cron.allow</cite> does not exist, this becomes a blacklist, all other users are permitted</p></li>
+</ul>
+</dd>
+</dl>
+<p>If neither of these files exists, either only the superuser can use cron jobs, or every user can.</p>
+<p><a class="reference external" href="https://ostechnix.com/a-beginners-guide-to-cron-jobs/">Tutorial</a></p>
+<p>We can edit CRON jobs for our user using this command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ crontab -e
+</pre></div>
+</div>
+<p>Take the cronjob below, which appends the string “Hello World” to a log file in our <cite>/tmp</cite> directory, once a every minute.</p>
+<p>We then wait a couple of minutes for these messages to build up. Then check the log file.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ cat /tmp/test.log
+</pre></div>
+</div>
+<p>After 4 minutes have passed, the output should be something similar to this:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Hello World
+Hello World
+Hello World
+Hello World
+</pre></div>
+</div>
+<p>This verifies that our cronjob is working for our user.</p>
+<p>Finally, to stop the cronjob from running forever, we execute the command below. This clears all of the cronjobs for the current user.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ crontab -r
+</pre></div>
+</div>
+</section>
+<section id="data-flow">
+<h1>Data Flow<a class="headerlink" href="#data-flow" title="Permalink to this headline">¶</a></h1>
+<p>This is the flow of the data for research projects such as CTD and Mooring data. The information is recorded on a regular interval by sensors, for example, a Mooring. This is stored on a database on a local machine. That is then transferred to Niwa’s central database, which aggregates all the field data into a single place. We then construct a cronjob, which ensures the NZODN Postgres database is updated each day, with the most recent data.</p>
+<img alt="https://user-images.githubusercontent.com/18411037/106079425-10c23700-617a-11eb-8cd9-c2f215e4569e.png)" src="https://user-images.githubusercontent.com/18411037/106079425-10c23700-617a-11eb-8cd9-c2f215e4569e.png)" />
+</section>
+<section id="nzodn-example">
+<h1>NZODN Example<a class="headerlink" href="#nzodn-example" title="Permalink to this headline">¶</a></h1>
+<p>This is the crontab from the NZODN server. This is on the crontab of the root user of Wellimos.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1">#Schedule a daily import for mooring data. Get don&#39;t expect new data</span>
+<span class="c1">#most days, but when there is data we want it imported as soon as possible</span>
+<span class="m">2</span> <span class="m">10</span> * * * robot /home/robot/aodn/import/mooring/bin/loadAllMooringData.sh -c /home/robot/aodn/import/mooring/config/prod.ini &gt;&gt; /tmp/nzodn-mooring-import.log
+</pre></div>
+</div>
+<p>It runs everyday, at 2 minutes past 10.
+The 2 minute offset is to ensure that not all cron jobs are run at the same time on a server.
+That would put unnecessary strain on the existing server, and require additional compute for a very short amount of time, and no need for that power the rest of the time.</p>
+<p>The crontab executes a bash script with the <cite>robot</cite> user.
+This is a service account used by NZODN for automated processes.
+It has permission to read and write to directories, such as the <cite>/data/niwa/publish</cite> that exposes files to <a class="reference external" href="https://github.com/woodRock/psychic-invention/wiki/NZODN">NZODN</a> FTP server.</p>
+<p>This script takes in a configuration file <cite>prod.ini</cite> which specifies that parameters to the bash script <cite>loadAllMooringData.sh</cite>.
+Using a configuration file makes avoids hard-coding, and makes this script re-usable in the future for other purposes.
+A non-technical user can easily adjust the configuration, without needing to have an understanding of the implementation details of the program.
+The appendix gives an example a configuration file.</p>
+<p>The output of the bash script is appended to a log file <cite>/tmp/nzodn-mooring-import.log</cite>. Such that any runtime errors, executions, or unintended side affects can be reviewed in future. We use the <cite>tmp</cite> directory, such that we don’t keep erroneous log files that are no longer relevant for extended amounts of time. These would be a waste of disk space. We use the append command <cite>&gt;&gt;</cite>, since we do not want to overwrite the existing file entirely each time an ingestion is performed. In the event of a catastrophic error, we would have four days to review the log files.</p>
+</section>
+<section id="configuration-file-example">
+<h1>Configuration File example<a class="headerlink" href="#configuration-file-example" title="Permalink to this headline">¶</a></h1>
+<p>This is an example of the kind of configuration file <cite>prod.ini</cite> which is passed as an argument to our bash script that loads the mooring data. Sensitive details are obfuscated for obvious security reasons.</p>
+</section>
+<section id="log-files">
+<h1>Log Files<a class="headerlink" href="#log-files" title="Permalink to this headline">¶</a></h1>
+<p>By running <cite>cat /tmp/nzodn-mooring-import.log</cite> we can see the contents of the ingestion log files:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[2021/02/08 10:02:01] INFO    : Fetching data
+[2021/02/09 10:02:01] INFO    : Fetching data
+[2021/02/10 10:02:02] INFO    : Fetching data
+[2021/02/11 10:02:01] INFO    : Fetching data
+</pre></div>
+</div>
+<p>Here we see that the ingestion process has been completed for the past consecutive four days, with no further previous records.
+This is because the <cite>/tmp</cite> directory is cleared every four days (I assume).</p>
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2022, Jesse Wood, Susi Woelz, Andrea Mari
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

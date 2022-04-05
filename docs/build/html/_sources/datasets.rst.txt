@@ -1,9 +1,12 @@
 Datasets
 ========
 
+..  For ease of access to a user, we order the datasets in alphabetical order.
+    We also provide a brief description, notes on the data, and links to the resources on GeoSever, GeoNetwork and NZODN.    
+
 We provide a description of each dataset that we ingested into the NZODN database. 
 
-Benthic - Chattham Sound
+Benthic I - Chattham Sound
 --------------------------
 
 The benthic zone is the ecological region at the lowest level of a body of water such as an ocean, lake, or stream, including the sediment surface and some sub-surface layers. 
@@ -25,33 +28,17 @@ Links:
     * `GeoNetwork <https://nzodn.nz/geonetwork/srv/eng/metadata.show?id=40&currTab=simple>`_
     * `NZODN Portal <https://nzodn.nz/geonetwork/srv/eng/metadata.show?uuid=ee2c94b6-5d4b-4e36-a18b-c300c5139158>`_
 
-CTD
----
+Benthic II - Chatham Sound and Campbell Plateau
+------------------------------------------------
 
-A CTD device’s primary function is to detect how the conductivity and temperature of the water column changes relative to depth. 
-Conductivity is a measure of how well a solution conducts electricity and it is directly related to salinity. 
-By measuring the conductivity of seawater, the salinity can be derived from the temperature and pressure of the same water. 
-The depth is then derived from the pressure measurement by calculating the density of water from the temperature and the salinity. 
-(`source <https://oceanexplorer.noaa.gov/facts/ctd.html>`_)
+See Benthic I for more information. 
 
-Notes: 
-    * Conductivity, Temperature and Depth 
-    * a proxy for the salinity of water
-    * this is generated on a on-going basis 
-    * uses [cron](https://github.com/woodRock/psychic-invention/wiki/CRON) jobs to ingest the data each day
+Details:
+    * See Benthic I. 
 
 Links: 
-    * TODO 
-
-Oceanographic
--------------
-
-Notes: 
-    * TODO 
-
-Links:  
-    * `Geonetwork <https://nzodn.nz/geonetwork/srv/eng/metadata.show?id=44&currTab=simple>`_
-    * NZODN Portal TODO
+    * Geonetwork TODO 
+    * `NZODN Portal <https://nzodn.nz/geonetwork/srv/eng/metadata.show?uuid=28e841e3-19e9-4473-a1ed-f112bca5ac1a>`_
 
 Chemical Analysis 
 -----------------
@@ -75,12 +62,30 @@ Links:
     * `CSV file <https://github.com/woodRock/psychic-invention/blob/main/NZPhophoriteGeochemistry.csv>`_
     * `Geonetwork <https://nzodn.nz/geonetwork/srv/eng/metadata.show?id=50&currTab=simple>`_
 
-Benthic (2) - Chatham Sound and Campbell Plateau
-------------------------------------------------
+CTD
+---
 
-Details:
-    * TODO 
+A CTD device’s primary function is to detect how the conductivity and temperature of the water column changes relative to depth. 
+Conductivity is a measure of how well a solution conducts electricity and it is directly related to salinity. 
+By measuring the conductivity of seawater, the salinity can be derived from the temperature and pressure of the same water. 
+The depth is then derived from the pressure measurement by calculating the density of water from the temperature and the salinity. 
+(`source <https://oceanexplorer.noaa.gov/facts/ctd.html>`_)
+
+Notes: 
+    * Conductivity, Temperature and Depth 
+    * a proxy for the salinity of water
+    * this is generated on a on-going basis 
+    * uses `cron <https://github.com/woodRock/psychic-invention/wiki/CRON>`_ jobs to ingest the data each day
 
 Links: 
-    * Geonetwork TODO 
-    * `NZODN Portal <https://nzodn.nz/geonetwork/srv/eng/metadata.show?uuid=28e841e3-19e9-4473-a1ed-f112bca5ac1a>`_
+    * TODO 
+
+Oceanographic
+-------------
+
+Notes: 
+    * TODO 
+
+Links:  
+    * `Geonetwork <https://nzodn.nz/geonetwork/srv/eng/metadata.show?id=44&currTab=simple>`_
+    * NZODN Portal TODO
