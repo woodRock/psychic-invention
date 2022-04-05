@@ -100,10 +100,17 @@
 <li class="toctree-l3"><a class="reference internal" href="#log-files">Log Files</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#ftp">FTP</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#geonetwork">GeoNetwork</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#geoserver">GeoServer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#postgres">Postgres</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#sftp">SFTP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">NZODN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sftp">SFTP</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#generate-ssh-keys">Generate SSH Keys</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sftp-linux-command">SFTP Linux Command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#winscp">WinSCP</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#ssh">SSH</a></li>
 </ul>
 </li>
@@ -174,6 +181,10 @@
             
   <section id="technology">
 <h1>Technology<a class="headerlink" href="#technology" title="Permalink to this headline">¶</a></h1>
+<p>Here we provide an overview with code examples for the technologies used in the NZODN database.
+These examples cover the use cases encountered when ingesting data into the database.
+This section does not provide an exhaustive documentation of NZODN internals, only what the ingestor need worry about.
+Working examples, and links to further documentation, are provided for each technology to give a user intuition for how to use to ingest data.</p>
 <section id="cron">
 <h2>Cron<a class="headerlink" href="#cron" title="Permalink to this headline">¶</a></h2>
 <p>The software utility <a class="reference external" href="https://en.wikipedia.org/wiki/Cron">cron</a> was developed at AT&amp;T and Bell Labs.
@@ -226,14 +237,14 @@ For example, <cite>&#64;reboot</cite> configures a job to run once the daemon is
 Cron is rarely restarted, so this macro corresponds to when the machine is rebooted.
 In some Debian distributions this behaviour is enforced, where restarting cron will not run the <cite>&#64;reboot</cite> jobs.</p>
 <p>Some other examples include</p>
-<p><a href="#id4"><span class="problematic" id="id5">|Entry|Description|Equivalent to|</span></a>
-<a href="#id6"><span class="problematic" id="id7">|---|</span></a>—<a href="#id8"><span class="problematic" id="id9">|---|</span></a>
-<a href="#id10"><span class="problematic" id="id11">|`&#64;yearly (or &#64;annually)`|Run once a year at midnight of 1 January|`0 0 1 1 *`|</span></a>
-<a href="#id12"><span class="problematic" id="id13">|`&#64;monthly`|Run once a month at midnight of the first day of the month|`0 0 1 * *`|</span></a>
-<a href="#id14"><span class="problematic" id="id15">|`&#64;weekly`|Run once a week at midnight on Sunday morning|`0 0 * * 0`|</span></a>
-<a href="#id16"><span class="problematic" id="id17">|`&#64;daily (or &#64;midnight)`|Run once a day at midnight|`0 0 * * *`|</span></a>
-<a href="#id18"><span class="problematic" id="id19">|`&#64;hourly`|Run once an hour at the beginning of the hour|`0 * * * *`|</span></a>
-<a href="#id20"><span class="problematic" id="id21">|`&#64;reboot`|Run at startup|</span></a> <a href="#id2"><span class="problematic" id="id3">`</span></a>na`|</p>
+<p><a href="#id13"><span class="problematic" id="id14">|Entry|Description|Equivalent to|</span></a>
+<a href="#id15"><span class="problematic" id="id16">|---|</span></a>—<a href="#id17"><span class="problematic" id="id18">|---|</span></a>
+<a href="#id19"><span class="problematic" id="id20">|`&#64;yearly (or &#64;annually)`|Run once a year at midnight of 1 January|`0 0 1 1 *`|</span></a>
+<a href="#id21"><span class="problematic" id="id22">|`&#64;monthly`|Run once a month at midnight of the first day of the month|`0 0 1 * *`|</span></a>
+<a href="#id23"><span class="problematic" id="id24">|`&#64;weekly`|Run once a week at midnight on Sunday morning|`0 0 * * 0`|</span></a>
+<a href="#id25"><span class="problematic" id="id26">|`&#64;daily (or &#64;midnight)`|Run once a day at midnight|`0 0 * * *`|</span></a>
+<a href="#id27"><span class="problematic" id="id28">|`&#64;hourly`|Run once an hour at the beginning of the hour|`0 * * * *`|</span></a>
+<a href="#id29"><span class="problematic" id="id30">|`&#64;reboot`|Run at startup|</span></a> <a href="#id2"><span class="problematic" id="id3">`</span></a>na`|</p>
 </section>
 <section id="permission">
 <h3>Permission<a class="headerlink" href="#permission" title="Permalink to this headline">¶</a></h3>
@@ -310,20 +321,109 @@ The appendix gives an example a configuration file.</p>
 This is because the <cite>/tmp</cite> directory is cleared every four days (I assume).</p>
 </section>
 </section>
+<section id="ftp">
+<h2>FTP<a class="headerlink" href="#ftp" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/File_Transfer_Protocol">FTP</a> is the standard network protocol that is used to transfer files from a server to a client.
+It is not considered a secure form of communication, since although it can be configured to use a username and password for each client,
+this is vulnerable to brute force dictionary and social engineering attacks.</p>
+</section>
 <section id="geonetwork">
 <h2>GeoNetwork<a class="headerlink" href="#geonetwork" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://www.geonetwork-opensource.org/">GeoNetwork</a> is a catalogue application for managing spatially referenced resources.
+It stores the metadata for each data set we see on NZODN. This includes a variety of information, such as copyrights, attributions, abstracts, etc…
+A metadata record on the GeoNetwork points to a GeoServer WMS.</p>
 </section>
 <section id="geoserver">
 <h2>GeoServer<a class="headerlink" href="#geoserver" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="http://geoserver.org/">GeoServer</a> is an open-source tool developed using Java.
+It provides a user interface to create web map services that connect to databases, with interoperability with PostgreSQL.
+It publishes data from any major spatial data source using open standards published by the Open Geospatial Consortium.
+A map service can be accessed using many libraries, such as <a class="reference external" href="https://leafletjs.com/">Leaflet</a>.</p>
 </section>
 <section id="postgres">
 <h2>Postgres<a class="headerlink" href="#postgres" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://postgresql.org/about/licence">PostgreSQL</a> is a free and open-source relational database management software.
+We use the <a class="reference external" href="https://postgis.net/">Postgis</a> extension to add support for spatial data to Postgres.
+This extension follows the SQL specification from the <a class="reference external" href="https://en.wikipedia.org/wiki/Open_Geospatial_Consortium">Open Geospatial Consortium</a>.
+We use this table to store the geo-spatial data shown on the map and to store the file path and URL for the download data.</p>
+</section>
+<section id="id7">
+<h2>NZODN<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://nzodn.nz/">NZODN</a>, is a fork of the open-source <a class="reference external" href="https://github.com/aodn">AODN</a>.
+This utilizes open-source tools with best practise OGC standards to create a web portal to freely access research data.
+It allows the research community to search for useful resources to further their own work.
+Including the ability to download subsets (i.e., temporal, geographical extents) of a larger dataset.</p>
 </section>
 <section id="sftp">
 <h2>SFTP<a class="headerlink" href="#sftp" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/SSH_File_Transfer_Protocol">SFTP</a>, which stands for SSH File Transfer Protocol or Secure File Transfer Protocol.
+This is a secure version of <a class="reference external" href="https://en.wikipedia.org/wiki/File_Transfer_Protocol">FTP</a> that uses
+<a href="#id31"><span class="problematic" id="id32">`SSH &lt;https://en.wikipedia.org/wiki/SSH_(Secure_Shell)`_</span></a> to transfer files remotely.
+The IT department prefers, for the sake of security, to use the SFTP protocol instead, due to security vulnerabilities.</p>
+<p>In order to use SSH, the users need to have a have generated an SSH key.
+The public key of the client needs to be on the list of known hosts for the server.
+If not, the client will not be able to authenticate their SSH connection with the server.
+In order to design for reuse, it is wise to create a service account with its own SSH keys,
+to perform the automated data ingestion, rather than exposing a the public key of an individual user.</p>
+<p>The <a class="reference external" href="https://www.openssh.com/">OpenSSH</a> software package for Linux systems,
+allows us to perform all the necessary steps required to establish an SSH connection.
+<a class="reference external" href="https://www.ssh.com/ssh/copy-id">Here</a> is the tutorial for that process.</p>
+<section id="generate-ssh-keys">
+<h3>Generate SSH Keys<a class="headerlink" href="#generate-ssh-keys" title="Permalink to this headline">¶</a></h3>
+<p>First we must generate an SSH key. This is stored in the hidden folder <cite>.ssh</cite> in the home directory <cite>home/&lt;username&gt;</cite> of your user.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh-keygen
+</pre></div>
+</div>
+<p>Then we must copy our public key to the server. The copying may ask for a password.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ ssh-copy-id -i ~/.ssh/mykey user@host
+</pre></div>
+</div>
+<p>Now we can test our key has been created by trying to SSH to the server. This will automatically look in our <cite>.ssh</cite> folder if it exists, for our public key.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ ssh user@host
+</pre></div>
+</div>
+<p>We only ever send our public key to the server, we keep our private key a secret, and do not share it with anyone. Treat this like a password.</p>
+</section>
+<section id="sftp-linux-command">
+<h3>SFTP Linux Command<a class="headerlink" href="#sftp-linux-command" title="Permalink to this headline">¶</a></h3>
+<p><cite>sftp</cite> is a command that can be used directly in the Linux terminal. [
+<a class="reference external" href="https://linuxize.com/post/how-to-use-linux-sftp-command-to-transfer-files/">Tutorial</a></p>
+<p>To connect to a SFTP server simply execute this:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ sftp remote_username@server_ip_or_hostname
+</pre></div>
+</div>
+<p>If the ssh keys have been generated correctly and copied to the server the user should not be prompted for a password.</p>
+<p>Once connected to the server, it functions very similarly to the <cite>ftp</cite> command.
+Typing <cite>help</cite> will produce a list of all the possible commands and their description.</p>
+<p>To download a file, say <cite>example.txt</cite> from the server to the client, execute the following command:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>sftp&gt; get example.txt
+</pre></div>
+</div>
+<p>Then to close the SFTP connection the user must say good bye.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>sftp&gt; bye
+</pre></div>
+</div>
+</section>
+<section id="winscp">
+<h3>WinSCP<a class="headerlink" href="#winscp" title="Permalink to this headline">¶</a></h3>
+<dl class="simple">
+<dt>TODO:</dt><dd><ul class="simple">
+<li><p>Expand w screenshots.</p></li>
+<li><p>Use Paegent for ssh-rsa key.</p></li>
+<li><p>My SSH key works for NZODN.</p></li>
+<li><p>Use WinSCP to connect to the server.</p></li>
+<li><p>Visualization of directory structure.</p></li>
+</ul>
+</dd>
+</dl>
+</section>
 </section>
 <section id="ssh">
 <h2>SSH<a class="headerlink" href="#ssh" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/SSH_(Secure_Shell)">SSH</a> relies on a two-way handshake between the server and the client.
+The handshake is established using public and private key pairs. The server and the client share their public keys, and keep their private key a secret.
+The private key of the client, and the public key of the server, can be combined to form a send a connection request to the server.
+The server then uses its private key, and the clients public key, to authenticate the request. And so, a secure shell connection can be formed.</p>
 </section>
 </section>
 

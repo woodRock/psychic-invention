@@ -1,0 +1,257 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Generate SSH Keys &mdash; nzodn 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> nzodn
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets.html">Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technology.html">Technology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../support.html">Support</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">nzodn</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Generate SSH Keys</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/tech/sftp.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <p><a class="reference external" href="https://en.wikipedia.org/wiki/SSH_File_Transfer_Protocol">SFTP</a>, which stands for SSH File Transfer Protocol or Secure File Transfer Protocol.
+This is a secure version of <a class="reference external" href="https://en.wikipedia.org/wiki/File_Transfer_Protocol">FTP</a> that uses
+<a href="#id1"><span class="problematic" id="id2">`SSH &lt;https://en.wikipedia.org/wiki/SSH_(Secure_Shell)`_</span></a> to transfer files remotely.
+The IT department prefers, for the sake of security, to use the SFTP protocol instead, due to security vulnerabilities.</p>
+<p>In order to use SSH, the users need to have a have generated an SSH key.
+The public key of the client needs to be on the list of known hosts for the server.
+If not, the client will not be able to authenticate their SSH connection with the server.
+In order to design for reuse, it is wise to create a service account with its own SSH keys,
+to perform the automated data ingestion, rather than exposing a the public key of an individual user.</p>
+<p>The <a class="reference external" href="https://www.openssh.com/">OpenSSH</a> software package for Linux systems,
+allows us to perform all the necessary steps required to establish an SSH connection.
+<a class="reference external" href="https://www.ssh.com/ssh/copy-id">Here</a> is the tutorial for that process.</p>
+<section id="generate-ssh-keys">
+<h1>Generate SSH Keys<a class="headerlink" href="#generate-ssh-keys" title="Permalink to this headline">¶</a></h1>
+<p>First we must generate an SSH key. This is stored in the hidden folder <cite>.ssh</cite> in the home directory <cite>home/&lt;username&gt;</cite> of your user.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh-keygen
+</pre></div>
+</div>
+<p>Then we must copy our public key to the server. The copying may ask for a password.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ ssh-copy-id -i ~/.ssh/mykey user@host
+</pre></div>
+</div>
+<p>Now we can test our key has been created by trying to SSH to the server. This will automatically look in our <cite>.ssh</cite> folder if it exists, for our public key.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ ssh user@host
+</pre></div>
+</div>
+<p>We only ever send our public key to the server, we keep our private key a secret, and do not share it with anyone. Treat this like a password.</p>
+</section>
+<section id="sftp-linux-command">
+<h1>SFTP Linux Command<a class="headerlink" href="#sftp-linux-command" title="Permalink to this headline">¶</a></h1>
+<p><cite>sftp</cite> is a command that can be used directly in the Linux terminal. [
+<a class="reference external" href="https://linuxize.com/post/how-to-use-linux-sftp-command-to-transfer-files/">Tutorial</a></p>
+<p>To connect to a SFTP server simply execute this:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ sftp remote_username@server_ip_or_hostname
+</pre></div>
+</div>
+<p>If the ssh keys have been generated correctly and copied to the server the user should not be prompted for a password.</p>
+<p>Once connected to the server, it functions very similarly to the <cite>ftp</cite> command.
+Typing <cite>help</cite> will produce a list of all the possible commands and their description.</p>
+<p>To download a file, say <cite>example.txt</cite> from the server to the client, execute the following command:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>sftp&gt; get example.txt
+</pre></div>
+</div>
+<p>Then to close the SFTP connection the user must say good bye.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>sftp&gt; bye
+</pre></div>
+</div>
+</section>
+<section id="winscp">
+<h1>WinSCP<a class="headerlink" href="#winscp" title="Permalink to this headline">¶</a></h1>
+<dl class="simple">
+<dt>TODO:</dt><dd><ul class="simple">
+<li><p>Expand w screenshots.</p></li>
+<li><p>Use Paegent for ssh-rsa key.</p></li>
+<li><p>My SSH key works for NZODN.</p></li>
+<li><p>Use WinSCP to connect to the server.</p></li>
+<li><p>Visualization of directory structure.</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2022, Jesse Wood, Susi Woelz, Andrea Mari
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

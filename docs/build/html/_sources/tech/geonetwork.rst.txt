@@ -1,0 +1,3 @@
+`GeoNetwork <https://www.geonetwork-opensource.org/>`_ is a catalogue application for managing spatially referenced resources. 
+It stores the metadata for each data set we see on NZODN. This includes a variety of information, such as copyrights, attributions, abstracts, etc... 
+A metadata record on the GeoNetwork points to a GeoServer WMS.
