@@ -10,6 +10,8 @@ NZODN Data Ingestion Documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   support
+
 Indices and tables
 ==================
 
