@@ -1,9 +1,12 @@
 Datasets
 ========
 
+..  For ease of access to a user, we order the datasets in alphabetical order.
+    We also provide a brief description, notes on the data, and links to the resources on GeoSever, GeoNetwork and NZODN.    
+
 We provide a description of each dataset that we ingested into the NZODN database. 
 
-Benthic - Chattham Sound
+Benthic I - Chattham Sound
 --------------------------
 
 The benthic zone is the ecological region at the lowest level of a body of water such as an ocean, lake, or stream, including the sediment surface and some sub-surface layers. 
@@ -24,6 +27,40 @@ Notes:
 Links:
     * `GeoNetwork <https://nzodn.nz/geonetwork/srv/eng/metadata.show?id=40&currTab=simple>`_
     * `NZODN Portal <https://nzodn.nz/geonetwork/srv/eng/metadata.show?uuid=ee2c94b6-5d4b-4e36-a18b-c300c5139158>`_
+
+Benthic II - Chatham Sound and Campbell Plateau
+------------------------------------------------
+
+See Benthic I for more information. 
+
+Details:
+    * See Benthic I. 
+
+Links: 
+    * Geonetwork TODO 
+    * `NZODN Portal <https://nzodn.nz/geonetwork/srv/eng/metadata.show?uuid=28e841e3-19e9-4473-a1ed-f112bca5ac1a>`_
+
+Chemical Analysis 
+-----------------
+
+The New Zealand offshore seabed hosts diverse resources including phosphate rich rocks. 
+Phosphate rock deposits on the Chatham Rise have been the focus of previous investigations into their composition and mining potential; 
+however, the diversity of the geochemistry of phosphate deposits, including their wider distribution beyond the Chatham Rise, 
+their trace metal budget, and potential for ecotoxicity, remain poorly characterised. 
+This study addresses some of these gaps by presenting a geochemical investigation, including trace metals, 
+for a range of phosphate nodules from across the Chatham Rise, Bollons Seamount and offshore southeastern South Island. 
+Elutriate and reconnaissance bioaccumulation experiments provide insights into the potential for ecotoxic trace metal release 
+and effects on biota should sediment disturbance through mining activities occur.
+(`source <https://researcharchive.vuw.ac.nz/xmlui/handle/10063/7706>`_)
+
+Details:
+    * NZ Phophorite Geochemistry readings. 
+    * The data is an XSLX file that has been transposed into a CSV file. 
+    * Each row contains a station, coordinates and its respective measurements.
+
+Links: 
+    * `CSV file <https://github.com/woodRock/psychic-invention/blob/main/NZPhophoriteGeochemistry.csv>`_
+    * `Geonetwork <https://nzodn.nz/geonetwork/srv/eng/metadata.show?id=50&currTab=simple>`_
 
 CTD
 ---
@@ -52,35 +89,3 @@ Notes:
 Links:  
     * `Geonetwork <https://nzodn.nz/geonetwork/srv/eng/metadata.show?id=44&currTab=simple>`_
     * NZODN Portal TODO
-
-Chemical Analysis 
------------------
-
-The New Zealand offshore seabed hosts diverse resources including phosphate rich rocks. 
-Phosphate rock deposits on the Chatham Rise have been the focus of previous investigations into their composition and mining potential; 
-however, the diversity of the geochemistry of phosphate deposits, including their wider distribution beyond the Chatham Rise, 
-their trace metal budget, and potential for ecotoxicity, remain poorly characterised. 
-This study addresses some of these gaps by presenting a geochemical investigation, including trace metals, 
-for a range of phosphate nodules from across the Chatham Rise, Bollons Seamount and offshore southeastern South Island. 
-Elutriate and reconnaissance bioaccumulation experiments provide insights into the potential for ecotoxic trace metal release 
-and effects on biota should sediment disturbance through mining activities occur.
-(`source <https://researcharchive.vuw.ac.nz/xmlui/handle/10063/7706>`_)
-
-Details:
-    * NZ Phophorite Geochemistry readings. 
-    * The data is an XSLX file that has been transposed into a CSV file. 
-    * Each row contains a station, coordinates and its respective measurements.
-
-Links: 
-    * `CSV file <https://github.com/woodRock/psychic-invention/blob/main/NZPhophoriteGeochemistry.csv>`_
-    * `Geonetwork <https://nzodn.nz/geonetwork/srv/eng/metadata.show?id=50&currTab=simple>`_
-
-Benthic (2) - Chatham Sound and Campbell Plateau
-------------------------------------------------
-
-Details:
-    * TODO 
-
-Links: 
-    * Geonetwork TODO 
-    * `NZODN Portal <https://nzodn.nz/geonetwork/srv/eng/metadata.show?uuid=28e841e3-19e9-4473-a1ed-f112bca5ac1a>`_

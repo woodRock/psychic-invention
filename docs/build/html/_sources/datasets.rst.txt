@@ -6,9 +6,13 @@ We provide a description of each dataset that we ingested into the NZODN databas
 Benthic - Chattham Sound
 --------------------------
 
-The benthic zone is the ecological region at the lowest level of a body of water such as an ocean, lake, or stream, including the sediment surface and some sub-surface layers. ([source](https://en.wikipedia.org/wiki/Benthic_zone))
+The benthic zone is the ecological region at the lowest level of a body of water such as an ocean, lake, or stream, including the sediment surface and some sub-surface layers. 
+(`source <https://en.wikipedia.org/wiki/Benthic_zone>`_)
 
-Biodiversity is the variety and variability of life on Earth. Biodiversity is typically a measure of variation at the genetic, species, and ecosystem level. Terrestrial biodiversity is usually greater near the equator, which is the result of the warm climate and high primary productivity. ([source](https://en.wikipedia.org/wiki/Biodiversity))
+Biodiversity is the variety and variability of life on Earth. 
+Biodiversity is typically a measure of variation at the genetic, species, and ecosystem level. 
+Terrestrial biodiversity is usually greater near the equator, which is the result of the warm climate and high primary productivity. 
+(`source <https://en.wikipedia.org/wiki/Biodiversity>`_)
 
 Notes:
     * benthic biodiversity relates to species and their habitat
@@ -52,7 +56,15 @@ Links:
 Chemical Analysis 
 -----------------
 
-The New Zealand offshore seabed hosts diverse resources including phosphate rich rocks. Phosphate rock deposits on the Chatham Rise have been the focus of previous investigations into their composition and mining potential; however, the diversity of the geochemistry of phosphate deposits, including their wider distribution beyond the Chatham Rise, their trace metal budget, and potential for ecotoxicity, remain poorly characterised. This study addresses some of these gaps by presenting a geochemical investigation, including trace metals, for a range of phosphate nodules from across the Chatham Rise, Bollons Seamount and offshore southeastern South Island. Elutriate and reconnaissance bioaccumulation experiments provide insights into the potential for ecotoxic trace metal release and effects on biota should sediment disturbance through mining activities occur ([source](https://researcharchive.vuw.ac.nz/xmlui/handle/10063/7706))
+The New Zealand offshore seabed hosts diverse resources including phosphate rich rocks. 
+Phosphate rock deposits on the Chatham Rise have been the focus of previous investigations into their composition and mining potential; 
+however, the diversity of the geochemistry of phosphate deposits, including their wider distribution beyond the Chatham Rise, 
+their trace metal budget, and potential for ecotoxicity, remain poorly characterised. 
+This study addresses some of these gaps by presenting a geochemical investigation, including trace metals, 
+for a range of phosphate nodules from across the Chatham Rise, Bollons Seamount and offshore southeastern South Island. 
+Elutriate and reconnaissance bioaccumulation experiments provide insights into the potential for ecotoxic trace metal release 
+and effects on biota should sediment disturbance through mining activities occur.
+(`source <https://researcharchive.vuw.ac.nz/xmlui/handle/10063/7706>`_)
 
 Details:
     * NZ Phophorite Geochemistry readings. 
