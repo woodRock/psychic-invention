@@ -1,0 +1,86 @@
+Datasets
+========
+
+We provide a description of each dataset that we ingested into the NZODN database. 
+
+Benthic - Chattham Sound
+--------------------------
+
+The benthic zone is the ecological region at the lowest level of a body of water such as an ocean, lake, or stream, including the sediment surface and some sub-surface layers. 
+(`source <https://en.wikipedia.org/wiki/Benthic_zone>`_)
+
+Biodiversity is the variety and variability of life on Earth. 
+Biodiversity is typically a measure of variation at the genetic, species, and ecosystem level. 
+Terrestrial biodiversity is usually greater near the equator, which is the result of the warm climate and high primary productivity. 
+(`source <https://en.wikipedia.org/wiki/Biodiversity>`_)
+
+Notes:
+    * benthic biodiversity relates to species and their habitat
+    * statistical modeling on the likelihood of a taxon being in its habitat
+    * zip file 
+    * display bounding box only on the map
+    * bounding box crosses the 180 degree line
+
+Links:
+    * `GeoNetwork <https://nzodn.nz/geonetwork/srv/eng/metadata.show?id=40&currTab=simple>`_
+    * `NZODN Portal <https://nzodn.nz/geonetwork/srv/eng/metadata.show?uuid=ee2c94b6-5d4b-4e36-a18b-c300c5139158>`_
+
+CTD
+---
+
+A CTD device’s primary function is to detect how the conductivity and temperature of the water column changes relative to depth. 
+Conductivity is a measure of how well a solution conducts electricity and it is directly related to salinity. 
+By measuring the conductivity of seawater, the salinity can be derived from the temperature and pressure of the same water. 
+The depth is then derived from the pressure measurement by calculating the density of water from the temperature and the salinity. 
+(`source <https://oceanexplorer.noaa.gov/facts/ctd.html>`_)
+
+Notes: 
+    * Conductivity, Temperature and Depth 
+    * a proxy for the salinity of water
+    * this is generated on a on-going basis 
+    * uses [cron](https://github.com/woodRock/psychic-invention/wiki/CRON) jobs to ingest the data each day
+
+Links: 
+    * TODO 
+
+Oceanographic
+-------------
+
+Notes: 
+    * TODO 
+
+Links:  
+    * `Geonetwork <https://nzodn.nz/geonetwork/srv/eng/metadata.show?id=44&currTab=simple>`_
+    * NZODN Portal TODO
+
+Chemical Analysis 
+-----------------
+
+The New Zealand offshore seabed hosts diverse resources including phosphate rich rocks. 
+Phosphate rock deposits on the Chatham Rise have been the focus of previous investigations into their composition and mining potential; 
+however, the diversity of the geochemistry of phosphate deposits, including their wider distribution beyond the Chatham Rise, 
+their trace metal budget, and potential for ecotoxicity, remain poorly characterised. 
+This study addresses some of these gaps by presenting a geochemical investigation, including trace metals, 
+for a range of phosphate nodules from across the Chatham Rise, Bollons Seamount and offshore southeastern South Island. 
+Elutriate and reconnaissance bioaccumulation experiments provide insights into the potential for ecotoxic trace metal release 
+and effects on biota should sediment disturbance through mining activities occur.
+(`source <https://researcharchive.vuw.ac.nz/xmlui/handle/10063/7706>`_)
+
+Details:
+    * NZ Phophorite Geochemistry readings. 
+    * The data is an XSLX file that has been transposed into a CSV file. 
+    * Each row contains a station, coordinates and its respective measurements.
+
+Links: 
+    * `CSV file <https://github.com/woodRock/psychic-invention/blob/main/NZPhophoriteGeochemistry.csv>`_
+    * `Geonetwork <https://nzodn.nz/geonetwork/srv/eng/metadata.show?id=50&currTab=simple>`_
+
+Benthic (2) - Chatham Sound and Campbell Plateau
+------------------------------------------------
+
+Details:
+    * TODO 
+
+Links: 
+    * Geonetwork TODO 
+    * `NZODN Portal <https://nzodn.nz/geonetwork/srv/eng/metadata.show?uuid=28e841e3-19e9-4473-a1ed-f112bca5ac1a>`_

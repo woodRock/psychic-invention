@@ -6,6 +6,7 @@ NZODN Docs
    :caption: Contents:
 
    about
+   datasets
    support
 
 Indices and tables
